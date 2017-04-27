@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.8)
 project(qxtglobalshortcut_test)
 
+include(../cmake/cxx11.cmake)
+
 find_package(qxtglobalshortcut REQUIRED)
 
 find_package(Qt4 REQUIRED)

@@ -1,5 +1,7 @@
 Cross-platform library for handling system-wide shortcuts in Qt applications.
 
+[![Build Status](https://travis-ci.org/hluk/qxtglobalshortcut.svg?branch=master)](https://travis-ci.org/hluk/qxtglobalshortcut)
+
 This code was originally part of [Qtx](https://bitbucket.org/libqxt/libqxt/wiki/Home) which is no longer maintained.
 
 # Supported Platforms

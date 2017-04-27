@@ -3,6 +3,7 @@
 #include <qxtglobalshortcut.h>
 
 #include <QTextStream>
+#include <QTimer>
 
 int main(int argc, char **argv)
 {
@@ -20,11 +21,19 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    out << QString("Press shortcut %1 (or CTRL+C to exit)").arg(shortcut.toString()) << endl;
+    QTimer t;
+    QObject::connect(&t, SIGNAL(timeout()), &app, SLOT(quit()));
+    t.setSingleShot(true);
+    t.setInterval(5000);
+    t.start();
+
+    out << QString("Press shortcut %1 (or CTRL+C to exit; times out in 5 seconds)").arg(shortcut.toString()) << endl;
 
     QObject::connect(
                 &globalShortcut, SIGNAL(activated(QxtGlobalShortcut*)),
                 &app, SLOT(quit()));
 
-    return app.exec();
+    app.exec();
+
+    return t.isActive() ? 0 : 1;
 }

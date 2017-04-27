@@ -1,0 +1,44 @@
+language: cpp
+sudo: required
+
+matrix:
+  include:
+    - os: osx
+      compiler: clang
+
+    - os: linux
+      compiler: gcc
+      env:
+        - COMPILER=g++-4.8
+        - GCOV=gcov-4.8
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.8
+
+    - os: linux
+      compiler: clang
+      env:
+        - COMPILER=clang++-3.6
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.6
+          packages:
+            - clang-3.6
+
+cache:
+  apt: true
+  ccache: true
+
+before_install:
+  - utils/travis/before-install-${TRAVIS_OS_NAME}.sh
+
+install:
+  - utils/travis/install-${TRAVIS_OS_NAME}.sh
+
+script:
+  - utils/travis/script-${TRAVIS_OS_NAME}.sh
