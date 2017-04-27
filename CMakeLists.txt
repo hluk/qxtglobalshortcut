@@ -28,6 +28,8 @@ set(${bin}_moc
     src/qxtglobalshortcut.h
     )
 
+add_definitions("-DBUILD_QXT_GUI")
+
 include(cmake/cxx11.cmake)
 include(cmake/library.cmake)
 include(cmake/platform.cmake)
