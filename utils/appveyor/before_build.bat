@@ -1,0 +1,1 @@
+cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install -G "%CMAKE_GENERATOR%"
