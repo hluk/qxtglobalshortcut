@@ -22,7 +22,8 @@ target_include_directories(${bin} INTERFACE
 # Generate and install CMake files for the library so `find_package(<Library>)` can be used with CMake.
 # For more info: https://cmake.org/cmake/help/v3.0/manual/cmake-packages.7.html#creating-packages
 include(GenerateExportHeader)
-generate_export_header(${bin})
+generate_export_header(${bin} EXPORT_FILE_NAME ${CMAKE_CURRENT_BINARY_DIR}/exports/${bin}_export.h)
+target_include_directories(${bin} PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/exports)
 
 install(TARGETS ${bin} EXPORT ${bin}Targets
     LIBRARY DESTINATION lib
@@ -34,6 +35,7 @@ install(TARGETS ${bin} EXPORT ${bin}Targets
 install(
     FILES
         ${${bin}_public_headers}
+        ${PROJECT_BINARY_DIR}/${bin}_export.h
     DESTINATION
         include/${bin}
     COMPONENT

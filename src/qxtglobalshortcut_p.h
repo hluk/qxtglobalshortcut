@@ -31,24 +31,23 @@
 
 #define QXTGLOBALSHORTCUT_P_H
 
-#include "qxtglobalshortcut.h"
 #include <QAbstractEventDispatcher>
-#include <QKeySequence>
 #include <QHash>
+
+class QKeySequence;
+class QxtGlobalShortcut;
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 #include <QAbstractNativeEventFilter>
 #endif
 
 class QxtGlobalShortcutPrivate
-    : public QxtPrivate<QxtGlobalShortcut>
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-    , public QAbstractNativeEventFilter
+    : public QAbstractNativeEventFilter
 #endif
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtGlobalShortcut)
-    QxtGlobalShortcutPrivate();
+    explicit QxtGlobalShortcutPrivate(QxtGlobalShortcut *q);
     ~QxtGlobalShortcutPrivate();
 
     bool enabled;
@@ -77,6 +76,8 @@ public:
     static void activateShortcut(quint32 nativeKey, quint32 nativeMods);
 
 private:
+    QxtGlobalShortcut *q_ptr;
+
     static quint32 nativeKeycode(Qt::Key keycode);
     static quint32 nativeModifiers(Qt::KeyboardModifiers modifiers);
 

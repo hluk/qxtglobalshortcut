@@ -30,8 +30,8 @@
 *****************************************************************************/
 
 #include "qxtglobalshortcut_p.h"
+
 #include <QAbstractEventDispatcher>
-#include <QtDebug>
 
 #ifndef Q_OS_MAC
 int QxtGlobalShortcutPrivate::ref = 0;
@@ -41,8 +41,9 @@ QAbstractEventDispatcher::EventFilter QxtGlobalShortcutPrivate::prevEventFilter 
 #endif // Q_OS_MAC
 QHash<QPair<quint32, quint32>, QxtGlobalShortcut*> QxtGlobalShortcutPrivate::shortcuts;
 
-QxtGlobalShortcutPrivate::QxtGlobalShortcutPrivate()
-    : enabled(true)
+QxtGlobalShortcutPrivate::QxtGlobalShortcutPrivate(QxtGlobalShortcut *q)
+    : q_ptr(q)
+    , enabled(true)
     , key(Qt::Key(0))
     , mods(Qt::NoModifier)
     , nativeKey(0)
@@ -99,7 +100,7 @@ bool QxtGlobalShortcutPrivate::setShortcut(const QKeySequence& shortcut)
 
     registered = registerShortcut(nativeKey, nativeMods);
     if (registered)
-        shortcuts.insert(qMakePair(nativeKey, nativeMods), &qxt_p());
+        shortcuts.insert(qMakePair(nativeKey, nativeMods), q_ptr);
 
     return registered;
 }
@@ -107,7 +108,7 @@ bool QxtGlobalShortcutPrivate::setShortcut(const QKeySequence& shortcut)
 bool QxtGlobalShortcutPrivate::unsetShortcut()
 {
     if (registered
-            && shortcuts.value(qMakePair(nativeKey, nativeMods)) == &qxt_p()
+            && shortcuts.value(qMakePair(nativeKey, nativeMods)) == q_ptr
             && unregisterShortcut(nativeKey, nativeMods))
     {
         shortcuts.remove(qMakePair(nativeKey, nativeMods));
@@ -157,18 +158,17 @@ void QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativ
     Constructs a new QxtGlobalShortcut with \a parent.
  */
 QxtGlobalShortcut::QxtGlobalShortcut(QObject* parent)
-        : QObject(parent)
+    : QObject(parent)
+    , d_ptr(new QxtGlobalShortcutPrivate(this))
 {
-    QXT_INIT_PRIVATE(QxtGlobalShortcut);
 }
 
 /*!
     Constructs a new QxtGlobalShortcut with \a shortcut and \a parent.
  */
 QxtGlobalShortcut::QxtGlobalShortcut(const QKeySequence& shortcut, QObject* parent)
-        : QObject(parent)
+    : QxtGlobalShortcut(parent)
 {
-    QXT_INIT_PRIVATE(QxtGlobalShortcut);
     setShortcut(shortcut);
 }
 
@@ -177,6 +177,7 @@ QxtGlobalShortcut::QxtGlobalShortcut(const QKeySequence& shortcut, QObject* pare
  */
 QxtGlobalShortcut::~QxtGlobalShortcut()
 {
+    delete d_ptr;
 }
 
 /*!
@@ -195,12 +196,12 @@ QxtGlobalShortcut::~QxtGlobalShortcut()
  */
 QKeySequence QxtGlobalShortcut::shortcut() const
 {
-    return QKeySequence( static_cast<int>(qxt_d().key | qxt_d().mods) );
+    return QKeySequence( static_cast<int>(d_ptr->key | d_ptr->mods) );
 }
 
 bool QxtGlobalShortcut::setShortcut(const QKeySequence& shortcut)
 {
-    return qxt_d().setShortcut(shortcut);
+    return d_ptr->setShortcut(shortcut);
 }
 
 /*!
@@ -215,17 +216,17 @@ bool QxtGlobalShortcut::setShortcut(const QKeySequence& shortcut)
  */
 bool QxtGlobalShortcut::isEnabled() const
 {
-    return qxt_d().enabled;
+    return d_ptr->enabled;
 }
 
 bool QxtGlobalShortcut::isValid() const
 {
-    return qxt_d().registered;
+    return d_ptr->registered;
 }
 
 void QxtGlobalShortcut::setEnabled(bool enabled)
 {
-    qxt_d().enabled = enabled;
+    d_ptr->enabled = enabled;
 }
 
 /*!
@@ -235,5 +236,5 @@ void QxtGlobalShortcut::setEnabled(bool enabled)
  */
 void QxtGlobalShortcut::setDisabled(bool disabled)
 {
-    qxt_d().enabled = !disabled;
+    d_ptr->enabled = !disabled;
 }

@@ -12,13 +12,11 @@ set(${bin}_VERSION_STRING ${${bin}_VERSION_MAJOR}.${${bin}_VERSION_MINOR}.${${bi
 
 # Public headers
 set(${bin}_public_headers
-    src/qxtglobal.h
     src/qxtglobalshortcut.h
     )
 
 # Source files common for all platforms
 set(${bin}_sources
-    src/qxtglobal.cpp
     src/qxtglobalshortcut.cpp
     ${${bin}_public_headers}
     )
@@ -27,8 +25,6 @@ set(${bin}_sources
 set(${bin}_moc
     src/qxtglobalshortcut.h
     )
-
-add_definitions("-DBUILD_QXT_GUI")
 
 include(cmake/cxx11.cmake)
 include(cmake/library.cmake)
