@@ -1,14 +1,8 @@
-cmake_minimum_required(VERSION 2.8.8)
-project(qxtglobalshortcut)
+cmake_minimum_required(VERSION 3.0)
+project(qxtglobalshortcut VERSION 0.0.1)
 
 # Library name
 set(bin qxtglobalshortcut)
-
-# Library version
-set(${bin}_VERSION_MAJOR 0)
-set(${bin}_VERSION_MINOR 0)
-set(${bin}_VERSION_PATCH 1)
-set(${bin}_VERSION_STRING ${${bin}_VERSION_MAJOR}.${${bin}_VERSION_MINOR}.${${bin}_VERSION_PATCH})
 
 # Public headers
 set(${bin}_public_headers
@@ -26,7 +20,11 @@ set(${bin}_moc
     src/qxtglobalshortcut.h
     )
 
+# Required pkg-config packages
+set(${bin}_pkg_config_requires)
+
 include(cmake/cxx11.cmake)
 include(cmake/library.cmake)
 include(cmake/platform.cmake)
 include(cmake/qt.cmake)
+include(cmake/pkg-config.cmake)

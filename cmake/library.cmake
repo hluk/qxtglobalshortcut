@@ -9,8 +9,8 @@ endif()
 
 add_library(${bin} ${libtype} ${${bin}_sources})
 set_target_properties(${bin} PROPERTIES
-    VERSION ${${bin}_VERSION_STRING}
-    SOVERSION ${${bin}_VERSION_MAJOR}
+    VERSION ${PROJECT_VERSION}
+    SOVERSION ${PROJECT_VERSION_MAJOR}
     )
 
 # Public headers
@@ -45,7 +45,7 @@ install(
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
     "${CMAKE_CURRENT_BINARY_DIR}/${bin}ConfigVersion.cmake"
-    VERSION ${${bin}_VERSION_STRING}
+    VERSION ${PROJECT_VERSION}
     COMPATIBILITY AnyNewerVersion
     )
 

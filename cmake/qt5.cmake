@@ -9,3 +9,5 @@ target_link_libraries(${bin} Qt5::Widgets)
 
 qt5_wrap_cpp(${bin}_mocced ${${bin}_moc})
 target_sources(${bin} PRIVATE ${${bin}_mocced})
+
+set(${bin}_pkg_config_requires ${${bin}_pkg_config_requires} Qt5Widgets)
