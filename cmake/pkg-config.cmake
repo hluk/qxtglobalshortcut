@@ -12,5 +12,11 @@ configure_file(
 set(INSTALL_PKG_CONFIG_DIR "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig"
     CACHE PATH "Installation directory for pkg-config files")
 
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${bin}.pc"
-    DESTINATION "${INSTALL_PKG_CONFIG_DIR}")
+install(
+    FILES
+        "${CMAKE_CURRENT_BINARY_DIR}/${bin}.pc"
+    DESTINATION
+        "${INSTALL_PKG_CONFIG_DIR}"
+    COMPONENT
+        dev
+    )

@@ -31,7 +31,7 @@
 
 #define QXTGLOBALSHORTCUT_H
 
-#include "qxtglobalshortcut_export.h"
+#include "private/qxtglobalshortcut_export.h"
 
 #include <QObject>
 #include <QKeySequence>
