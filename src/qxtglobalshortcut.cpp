@@ -128,7 +128,6 @@ void QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativ
 
 /*!
     \class QxtGlobalShortcut
-    \inmodule QxtWidgets
     \brief The QxtGlobalShortcut class provides a global shortcut aka "hotkey".
 
     A global shortcut triggers even if the application is not active. This
@@ -142,8 +141,6 @@ void QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativ
     connect(shortcut, SIGNAL(activated()), window, SLOT(toggleVisibility()));
     shortcut->setShortcut(QKeySequence("Ctrl+Shift+F12"));
     \endcode
-
-    \bold {Note:} Since Qxt 0.6 QxtGlobalShortcut no more requires QxtApplication.
  */
 
 /*!
@@ -193,12 +190,20 @@ QxtGlobalShortcut::~QxtGlobalShortcut()
     qxtShortcut->setShortcut(QKeySequence("Ctrl+Alt+A,Ctrl+Alt+B"));
     Q_ASSERT(qxtShortcut->shortcut() == QKeySequence("Ctrl+Alt+A"));
     \endcode
+
+    \sa setShortcut()
  */
 QKeySequence QxtGlobalShortcut::shortcut() const
 {
     return QKeySequence( static_cast<int>(d_ptr->key | d_ptr->mods) );
 }
 
+/*!
+    \property QxtGlobalShortcut::shortcut
+    \brief sets the shortcut key sequence
+
+    \sa shortcut()
+ */
 bool QxtGlobalShortcut::setShortcut(const QKeySequence& shortcut)
 {
     return d_ptr->setShortcut(shortcut);
@@ -212,18 +217,27 @@ bool QxtGlobalShortcut::setShortcut(const QKeySequence& shortcut)
 
     The default value is \c true.
 
-    \sa setDisabled()
+    \sa setEnabled(), setDisabled()
  */
 bool QxtGlobalShortcut::isEnabled() const
 {
     return d_ptr->enabled;
 }
 
+/*!
+    \property QxtGlobalShortcut::valid
+    \brief whether the shortcut was successfully set up
+ */
 bool QxtGlobalShortcut::isValid() const
 {
     return d_ptr->registered;
 }
 
+/*!
+    Sets the shortcut \a enabled.
+
+    \sa enabled
+ */
 void QxtGlobalShortcut::setEnabled(bool enabled)
 {
     d_ptr->enabled = enabled;
