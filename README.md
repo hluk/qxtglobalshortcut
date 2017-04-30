@@ -3,6 +3,8 @@ Cross-platform library for handling system-wide shortcuts in Qt applications.
 [![Build Status](https://travis-ci.org/hluk/qxtglobalshortcut.svg?branch=master)](https://travis-ci.org/hluk/qxtglobalshortcut)
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/hluk/qxtglobalshortcut?branch=master&svg=true)](https://ci.appveyor.com/project/hluk/qxtglobalshortcut)
 
+[API Reference](https://codedocs.xyz/hluk/qxtglobalshortcut/classQxtGlobalShortcut.html)
+
 This code was originally part of [Qtx](https://bitbucket.org/libqxt/libqxt/wiki/Home) which is no longer maintained.
 
 # Supported Platforms
@@ -15,7 +17,7 @@ This code was originally part of [Qtx](https://bitbucket.org/libqxt/libqxt/wiki/
 
 - Compiler with C++11 support
 - Qt 5 or Qt 4
-- CMake 2.8.8 and later
+- CMake 3.0.0 and later
 
 # Build
 
