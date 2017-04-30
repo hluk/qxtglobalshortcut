@@ -42,6 +42,7 @@ class QXTGLOBALSHORTCUT_EXPORT QxtGlobalShortcut : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
+    Q_PROPERTY(bool valid READ isValid)
     Q_PROPERTY(QKeySequence shortcut READ shortcut WRITE setShortcut)
 
 public:
