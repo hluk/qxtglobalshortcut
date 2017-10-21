@@ -1,10 +1,10 @@
-set(INSTALL_LIB_DIR "${LIB_SUFFIX}" CACHE PATH
+set(INSTALL_LIB_DIR "lib${LIB_SUFFIX}" CACHE PATH
     "Installation directory for libraries")
 set(INSTALL_BIN_DIR "bin" CACHE PATH
     "Installation directory for executables")
 set(INSTALL_INCLUDE_DIR "include/${bin}" CACHE PATH
     "Installation directory for header files")
-set(INSTALL_CMAKE_DIR "${LIB_SUFFIX}/cmake/${bin}" CACHE PATH
+set(INSTALL_CMAKE_DIR "lib${LIB_SUFFIX}/cmake/${bin}" CACHE PATH
     "Installation directory for CMake files")
 
 # Shared or static library
