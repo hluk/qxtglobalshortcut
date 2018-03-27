@@ -193,8 +193,12 @@ quint32 QxtGlobalShortcutPrivate::nativeKeycode(Qt::Key key)
 
     currentLayoutData = (CFDataRef)TISGetInputSourceProperty(currentKeyboard, kTISPropertyUnicodeKeyLayoutData);
     CFRelease(currentKeyboard);
-    if (currentLayoutData == nullptr)
-        return 0;
+    if (currentLayoutData == nullptr){//Japanese or Chinese always return null
+        currentKeyboard = TISCopyCurrentKeyboardLayoutInputSource();
+        currentLayoutData = (CFDataRef)TISGetInputSourceProperty(currentKeyboard, kTISPropertyUnicodeKeyLayoutData);
+        if(!currentLayoutData)
+            return 0;
+    }
 
     UCKeyboardLayout* header = (UCKeyboardLayout*)CFDataGetBytePtr(currentLayoutData);
     UCKeyboardTypeHeader* table = header->keyboardTypeList;
