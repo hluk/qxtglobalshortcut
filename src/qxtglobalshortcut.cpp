@@ -42,13 +42,13 @@ QAbstractEventDispatcher::EventFilter QxtGlobalShortcutPrivate::prevEventFilter 
 QHash<QPair<quint32, quint32>, QxtGlobalShortcut*> QxtGlobalShortcutPrivate::shortcuts;
 
 QxtGlobalShortcutPrivate::QxtGlobalShortcutPrivate(QxtGlobalShortcut *q)
-    : q_ptr(q)
-    , enabled(true)
+    : enabled(true)
     , key(Qt::Key(0))
     , mods(Qt::NoModifier)
     , nativeKey(0)
     , nativeMods(0)
     , registered(false)
+    , q_ptr(q)
 {
 #ifndef Q_OS_MAC
     if (ref == 0) {
