@@ -136,7 +136,7 @@ public:
 #endif
     }
 
-    bool isValid()
+    bool isValid() const
     {
         return m_display != nullptr;
     }
